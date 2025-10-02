@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flavor Combination Generator</title>
+    <!-- Add jQuery and jQuery UI for autocomplete -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .trios {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .combination {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+        }
+        .ingredient {
+            font-size: 18px;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .control-item {
+            margin: 10px;
+        }
+        .controls label {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        .optional-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: 5px;
+        }
+        /* jQuery UI autocomplete styling */
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: left;
+            z-index: 1000;
+        }
+        .ui-menu-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .ui-state-active,
+        .ui-widget-content .ui-state-active {
+            background-color: #4CAF50 !important;
+            color: white !important;
+            border: none !important;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            // Initialize jQuery UI autocomplete
+            $("#initial_ingredient").autocomplete({
+                source: "/ingredients/autocomplete",
+                minLength: 2, // Start suggesting after 2 characters
+                select: function(event, ui) {
+                    // Set the input value to the selected item
+                    $(this).val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Flavor Combination Generator</h1>
+    <div class="trios">
+        <h2>Delicious Ingredient Combinations</h2>
+        <div class="combination">
+            {% for ingredient in ingredients %}
+            <div class="ingredient">
+                {{ ingredient }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="controls">
+        <form action="/generate" method="post">
+            <div class="control-item">
+                <label for="initial_ingredient">Initial Ingredient: <span class="optional-label">(optional)</span></label>
+                <input type="text" id="initial_ingredient" name="initial_ingredient" placeholder="Start typing to see ingredients..." value="{{ initial_ingredient }}">
+            </div>
+            <div class="control-item">
+                <label for="num_ingredients">Number of Ingredients:</label>
+                <select name="num_ingredients" id="num_ingredients">
+                    <option value="3" {% if current_num == 3 %}selected{% endif %}>3 Ingredients</option>
+                    <option value="4" {% if current_num == 4 %}selected{% endif %}>4 Ingredients</option>
+                    <option value="5" {% if current_num == 5 %}selected{% endif %}>5 Ingredients</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <button type="submit">Generate New Combination</button>
+            </div>
+        </form>
+    </div>
+    {% if error %}
+    <div style="color: red; margin-top: 20px;">
+        {{ error }}
+    </div>
+    {% endif %}
+</body>
+</html>
