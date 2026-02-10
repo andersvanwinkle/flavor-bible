@@ -1,5 +1,6 @@
 # Flavor Bible (Ingredient Pairings Explorer)
 
+## What it is
 A lightweight web app for exploring **ingredient pairings** and “flavor affinities” from a curated dataset.
 
 **Problem:** when you have an ingredient (or two) and want to cook, it’s surprisingly hard to quickly answer: *what else reliably goes with this?* This app makes that lookup fast and searchable.
@@ -22,7 +23,7 @@ This project is designed as a fast, practical way to:
 - Loads a dataset of ingredient pairings
 - Returns matching rows and a short set of related suggestions
 
-## Quickstart
+## How to run (≤ 3 commands)
 
 ### 1) Clone
 ```bash
@@ -44,10 +45,20 @@ python app.py
 
 Then open: http://127.0.0.1:5000
 
-## Example
+## Example output
 Search for an ingredient (e.g., `tomato`) to see pairings and adjacent suggestions.
 
 A small sample output is included in [`demo/sample_output.txt`](demo/sample_output.txt).
+
+Snippet:
+```text
+Query: tomato
+Top pairings:
+- basil
+- garlic
+- olive oil
+...
+```
 
 ## Repo metadata
 Suggested topics:
