@@ -2,6 +2,14 @@
 
 A lightweight web app for exploring **ingredient pairings** and “flavor affinities” from a curated dataset.
 
+**Problem:** when you have an ingredient (or two) and want to cook, it’s surprisingly hard to quickly answer: *what else reliably goes with this?* This app makes that lookup fast and searchable.
+
+**How it works:** a small Flask UI loads a curated pairing table into memory and supports simple substring search to return matching pairings plus a short list of adjacent suggestions.
+
+**Example query → output (abridged):**
+- Query: `tomato`
+- Output: shows common pairings like `tomato + basil`, `tomato + garlic`, and related suggestions.
+
 This project is designed as a fast, practical way to:
 - discover complementary ingredients ("what else goes with X?")
 - filter by techniques / cuisine signals
