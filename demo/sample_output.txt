@@ -1,0 +1,15 @@
+Example (illustrative)
+
+Query: tomato
+
+Top pairings:
+- basil
+- garlic
+- olive oil
+- mozzarella
+- oregano
+
+Related:
+- balsamic
+- anchovy
+- caper
